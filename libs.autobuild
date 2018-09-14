@@ -7,6 +7,7 @@ cmake_package 'control/ct' do |pkg|
     #pkg.define("HPIPM_DIR", "install/include/hpipm")     # still need the prefix
     pkg.define("BUILD_EXAMPLES", "ON")
     pkg.define("HPIPM", "ON")
+    pkg.env_add("MAKEFLAGS", "-j1")
 end
 
 cmake_package 'control/kindr'
