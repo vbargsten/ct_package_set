@@ -1,0 +1,22 @@
+name: ct
+
+version_control:
+    - control/ct:
+      github: vbargsten/ct
+      branch: v2.3-cmake-only
+      
+    - control/kindr:
+      github: ethz-asl/kindr.git
+      branch: master
+      
+    - control/hpipm:
+      github: giaf/hpipm.git
+      branch: ct-v2
+      patches: 
+        - [$AUTOPROJ_SOURCE_DIR/patches/hpipm-install-files.patch, 1]
+      
+    - control/blasfeo:
+      github: giaf/blasfeo.git
+      branch: ct-v2
+      
+      

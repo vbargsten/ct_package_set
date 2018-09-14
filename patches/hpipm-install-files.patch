@@ -1,0 +1,35 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 71c9df1..d7899b6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -42,13 +42,13 @@ set(REF_BLAS 0)
+ # BLASFEO
+ if(NOT TARGET blasfeo)
+ 	# BLASFEO installation directory
+-	set(BLASFEO_PATH /opt/blasfeo)
++	set(BLASFEO_PATH ${CMAKE_INSTALL_PREFIX})
+ 	add_library(blasfeo STATIC IMPORTED)
+ 	set_target_properties(blasfeo PROPERTIES IMPORTED_LOCATION ${BLASFEO_PATH}/lib/libblasfeo.a)
+ 	set(BLASFEO_INCLUDE_DIR ${BLASFEO_PATH}/include)
+ else()
+ 	# TODO: horrible hardcode; needs to go
+-	set(BLASFEO_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../blasfeo/include)
++	set(BLASFEO_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include)
+ endif()
+ 
+ # enable runtine checks
+@@ -135,5 +135,14 @@ add_library(hpipm ${HPIPM_SRC})
+ target_include_directories(hpipm PUBLIC include ${BLASFEO_INCLUDE_DIR})
+ target_link_libraries(hpipm blasfeo)
+ 
++install(TARGETS hpipm DESTINATION lib)
++install (
++    DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/"
++    DESTINATION include
++    FILES_MATCHING 
++    PATTERN "*.hpp"
++    PATTERN "*.h"
++)
++
+ # test problems
+ add_subdirectory(test_problems)
